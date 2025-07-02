@@ -14,3 +14,5 @@ for the font family like the one which gets applied to all we are using the "out
 use the code copy it and paste it in the index.css and make the entire font-family of the code to outfit
 
 .always use capital letters for function component names like only the first letter shoud be capital
+
+.add routing by using BrowserRouter in the main.jsx file
