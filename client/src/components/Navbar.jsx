@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {assets} from '../assets/assets'
 import { Link, useNavigate } from 'react-router-dom'
+import { AppContext } from '../context/AppContext'
+
 const Navbar = () => {
 
-    const [user, setuser] =useState(true);//to identify weather user is logged in or logged out so, depending upon that we can give differnt navbars and other things
+    //we made a global context whoch stores all the states and fuctions and we just ave to import it in every compoennet to yse the ststesa nd fucntions
+    //const [user, setuser] =useState(null);//to identify weather user is logged in or logged out so, depending upon that we can give differnt navbars and other things
+
+    const {user} = useContext(AppContext)
 
     const navigate = useNavigate();//its simliar to link tag only which is used to go from one page to another
   return (
@@ -17,7 +22,7 @@ const Navbar = () => {
         {
         user ?
         <div className='flex items-center gap-2 sm:gap-3 '>
-            <button className='flex items-center gap-2 bg-blue-100 px-4 sm:px-6 py-1.5 sm:py-3 rounded-full hover:scale-105 transition-all duration-700'>
+            <button onClick={()=> navigate('/buy')} className='flex items-center gap-2 bg-blue-100 px-4 sm:px-6 py-1.5 sm:py-3 rounded-full hover:scale-105 transition-all duration-700'>
                 <img className='w-5' src={assets.credit_star} alt="" />
                 <p className='text-xs sm:text-sm font-medium text-gray-600'>Credits left : 50</p>
             </button>
@@ -26,7 +31,7 @@ const Navbar = () => {
                 <img src={assets.profile_icon} className='w-10 drop-shadow' />
                 <div className='absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-12'>
                     <ul className='list-none  m-0 p-2 bg-white rounded-md border text-sm'>
-                        <li className=''>Logout</li>
+                        <li className='py-1 px-2 cursor-pointer pr-10'>Logout</li>
                     </ul>
                 </div>
             </div>

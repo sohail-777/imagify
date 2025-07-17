@@ -16,3 +16,5 @@ use the code copy it and paste it in the index.css and make the entire font-fami
 .always use capital letters for function component names like only the first letter shoud be capital
 
 .add routing by using BrowserRouter in the main.jsx file
+
+**WE HAVE TO CREATE A SEPERATE FILE IN THE CONTEXT FOLDER CALLED APPCONTEXT.JSX TO STORE ALL OUR STATES IN ONE PLACE SO THAT WE CAN EASILY ACCESS OUR STATES AND OTHERS AND USE THEM PROPERLY
