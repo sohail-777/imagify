@@ -18,3 +18,7 @@ use the code copy it and paste it in the index.css and make the entire font-fami
 .add routing by using BrowserRouter in the main.jsx file
 
 **WE HAVE TO CREATE A SEPERATE FILE IN THE CONTEXT FOLDER CALLED APPCONTEXT.JSX TO STORE ALL OUR STATES IN ONE PLACE SO THAT WE CAN EASILY ACCESS OUR STATES AND OTHERS AND USE THEM PROPERLY
+
+**while using map function the .map(()=>()) inside the map we write a arrow function it should be off the form ()=>() not like ()=>{} as we are using it in a map function we have to maintain that syntax onlly but, in case of general functions we have to use it like ()=>{}
+
+we usually write the key={index} or the ones which are using the map function as the usage of key={index} will make the access easy and efficient we also will be able to understand what we are accessing and also its index.
