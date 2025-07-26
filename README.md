@@ -25,8 +25,20 @@ we usually write the key={index} or the ones which are using the map function as
 
 **the download attribute is used to download the corresponding thing mentioned in the fiels it can be a image or a text or anything
 
-**an alternative of "teronary opertaor":- value && (whatever u want to render) if the values "true" u will get the thing rendered if its false we wont get anything syntax:- {value && (the thing u want to render)}
+**an alternative of "teronary opertaor":- value or condition && (whatever u want to render) if the values "true" u will get the thing rendered if its false we wont get anything similarly if the condition is true u will get things rendered otherwise u wont get anything syntax:- {value or condition && (the thing u want to render)}
 
-this is used if u want to render something depending bupona acondition we can use teronary opertaors also and the above mentioned one also.
+this is used if u want to render something depending bupon a condition we can use teronary opertaors also and the above mentioned one also.
 
 .u can use it in case of multiple optipns like if u wnat to reder something dpending upon itd true or false value we can do this for multiple ones but, incase of teronary oprtaor we can only do it for two things
+
+for animation we are usung the ""FRAMER MOTION"" 
+
+open terminal and add "npm install motion" to install all the packages
+
+import this in whatever component u want to add animations to import { motion } from "motion/react"
+
+to use it in the element where u want to add animation just follow ths syntax:-<motion.element_name>
+
+"we can install an extension called "AUTO REMANE TAG" if we are chabding the name of the opemimg tag like if i want to change <div> to <motion.div> i should also go to the clising tag and change its name from </div> to </motion.div> manually .
+
+so, to automate this we have to use some extension like auto rename tag which automatically renames the closing tag if we are renaming tge opening tag

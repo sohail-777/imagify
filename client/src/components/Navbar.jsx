@@ -8,7 +8,8 @@ const Navbar = () => {
     //we made a global context whoch stores all the states and fuctions and we just ave to import it in every compoennet to yse the ststesa nd fucntions
     //const [user, setuser] =useState(null);//to identify weather user is logged in or logged out so, depending upon that we can give differnt navbars and other things
 
-    const {user} = useContext(AppContext)
+    const {user,setShowLogin} = useContext(AppContext)
+
 
     const navigate = useNavigate();//its simliar to link tag only which is used to go from one page to another
   return (
@@ -39,7 +40,7 @@ const Navbar = () => {
         : 
         <div className='flex items-center gap-2 sm:gap-5'>
           <p onClick={()=>navigate('/buy')}className='cursor-pointer'>Pricing</p>
-          <button className='bg-zinc-800 text-white px-7 py-2 sm:px-10 text-sm rounded-full'>Login</button>
+          <button onClick={()=>setShowLogin(true)} className='bg-zinc-800 text-white px-7 py-2 sm:px-10 text-sm rounded-full'>Login</button>
         </div>
         }
 
