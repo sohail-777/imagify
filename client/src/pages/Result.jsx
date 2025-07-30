@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {assets} from '../assets/assets'
+import { motion } from "motion/react"
 
 const Result = () => {
 
@@ -16,7 +17,12 @@ const Result = () => {
   }//here we creytyed this function to do the things when the submit button gets clicked in the form or the form gets submited what are all the things that must be done when the submit button is clicked.
 
   return (
-    <form onSubmit={onSubmitHandler} className='flex flex-col min-h-[90vh] justify-center items-center'>
+    <motion.form 
+    initial={{opacity:0.2,y:100}}
+    transition={{duration:1}}
+    whileInView={{opacity:1,y:0}}
+    viewport={{once:true}}
+    onSubmit={onSubmitHandler} className='flex flex-col min-h-[90vh] justify-center items-center'>
     <div>
       <div className='relative'>
 
@@ -51,7 +57,7 @@ const Result = () => {
       <a href={image} download className='bg-zins-900 px-10 py-3 rounded-full cursor-pointer'>Download</a>
     </div>
     }
-    </form>
+    </motion.form>
   )
 }
 
