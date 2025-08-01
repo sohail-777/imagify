@@ -114,3 +114,24 @@ afetr we ,make any changes in the code and in that case we have to firstly make 
 so, as we can see that whenevr we are making new changes we have to stop and then again start the server which is a huge task so, we will make few changes in the package.json file which is we will add this:- "server": "nodemon server.js" by adding this whenever we will type "npm run server" the "nodemon server.js" will run 
 
 now, the benefit is that now whenever we are making any changes in the server or user code we dont have to stop the server and then restart it again everything will automatically get updtaed with the help of the "nodemon" pacages use all we have to do is starte the server using "npm start server" if we are making nay changes after doing it then we have to just go to the page and refresh it the changes will be automatically updated without stoping and restarting the server which is really time saving and efficient 
+
+""MONGODB"":-
+
+now, we will start the integration of mongodb into our website to store the data in a database
+
+search for mongodb atlas
+login ur account
+and go to atlas and create a cluster select free one and google cloud and create it
+
+after everythings done we will get a liknk like ths:- mongodb+srv://sohailahmmad:6301295637So@cluster0.yfr8a2b.mongodb.net/
+
+we have to go to .env file and store that link with the "/" at the end removed and store it in the variable MONGODB_URI
+as we generally store these type of keys and all in our .env file
+
+go to atlas and go to network access and there delete the give ip address and cretae  anew one and cliock access to all we will get  anew ip address like this:- 0.0.0.0/0 which is accessible through all the ip addresses and it is easy to access alos and can connect our mongodb from any ip address
+
+after creating ip address we have to wiat till its active and now, we can connect our express and mongodb
+
+create mongodb.js file in a folder called confi where we have files required to do configurations for each necessary configurations
+
+in mongodb.js we will configure the database
