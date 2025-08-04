@@ -14,6 +14,12 @@ app.use(cors())
 
 await connectDB()//this syntax wil connect our express with the mongoDB dtabase
 
+
+//once our connection is successful and when we run our server we will be getting a  message dispalyed that the "database got connected"
+//and after this we will be getting the server running on port 4000 like this 
+
+//so, it goes in an orderd format
+
 app.get('/', (req, res)=>res.send("API Working"))//whenevr we are in "/" this path we will get "API Woeking"
 //we ahve two attributes whcih are request and response and when we are in this path "/" we are giving a response by sending the message
 //this line defines a route like whenever we click "/" in th browser the localhost

@@ -134,4 +134,7 @@ after creating ip address we have to wiat till its active and now, we can connec
 
 create mongodb.js file in a folder called confi where we have files required to do configurations for each necessary configurations
 
-in mongodb.js we will configure the database
+in mongodb.js we will configure the database  by implementing the required codes
+
+after we get "database connected" message its time to create the schema in mongodb
+

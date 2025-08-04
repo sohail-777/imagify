@@ -6,7 +6,7 @@ const connectDB = async ()=>{
         console.log("Database connected")
     })//this is an event which occurs when the database gets connected successfilly the "connected" is the evnt whoch when done successfully dispalyes teh message in the termial that "Database connected"
 
-    await mongoose.connect(`${process.env.MONGODB_URL}/imagify`)
+    await mongoose.connect(`${process.env.MONGODB_URI}/imagify`)
 }
 
 //here we used tempalte literal `${}` to access  value from another file 
