@@ -119,9 +119,51 @@ const loginUser = async (req, res)=>{
             //if the password is not matching then we will respond by a message that they are invalid
         }
     } catch(error){ 
-        cosnole.log(error)
-        res.json({sucess: false, message:error.message})
+        console.log(error)
+        res.json({success: false, message:error.message})
     }
 }
 
-export {registerUser, loginUser}
+const userCredits = async (req,res)=>{
+    try{
+        const {userId} = req.body
+        //here we will not get the user_id from the body insted we will be adding a middleware that will find the user_id from the token and that will add the user_id in the body
+
+
+        //Right now, this function assumes the client sends the userId in the request body — which is not secure.
+
+    
+        // Better approach → Authentication middleware:
+
+        // The client sends a JWT token in the request header.
+
+        // Middleware verifies the token using your JWT_SECRET.
+
+        // Middleware extracts the userId from the token payload.
+
+        // Middleware adds userId to req.body or req.user before this function runs.
+
+        // This way, users can’t fake someone else’s userId.
+
+        //think of it like if we are having someone elses user id then we can get free credits or other free advantages so, if two users are having the same user id then one can use the credits of the other user so, thats why we always "get a message that this username already exists" to avoid these confucions we have to use this authentication
+
+
+        const user = await userModel.findById(userId)
+        //here we are going to find the user by the userid
+        //userModel.findById(userId) is used to look for the user with that specific "id" in the mongodb
+        //there can be two cases user is found ,user is not found
+        //in case of user is found the "user" variable will be storing the entire user details like name ,email,password etc
+        //in case of no user is found we will be getting a null value 
+        //so, depending on the users presence or absence we give certain responses
+
+        res.json({sucess:true,credits:user.creditBalance,user:{name:user.name}})
+        //if the users found then we will give this response
+
+    }catch(error){
+        cosnole.log(error.message)
+        res.json({success: false, message:error.message})
+    }
+}
+
+
+export {registerUser, loginUser, userCredits}

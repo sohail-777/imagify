@@ -1,5 +1,6 @@
 import express from 'express'
-import {registerUser, loginUser} from '../controllers/userController.js'
+import {registerUser, loginUser, userCredits} from '../controllers/userController.js'
+import userAuth from '../middlewares/auth.js'
 
 
 //here we will be creating an API's
@@ -28,6 +29,14 @@ userRouter.post('/login', loginUser)
 
 //simple whenever someone posts something in the "/request" express will send that data to the "userRegister" thats it
 
+userRouter.post('/credits', userAuth, userCredits)
+
+//here as we will be getting the "user_id" from the "middleware" so, it is important to add the middleware also
+
+//when we first do the api testin gor this we will get "login again , not authorized something like that"
+
+//to fix it:- we have to provide it a token
+
 export default userRouter
 
 //whenever we hit:-
@@ -35,6 +44,8 @@ export default userRouter
 //http://localhost:400/api/user/register in the backend then it will hit the register API endpoint and will execute the "registerUser" function
 
 //now, we will be testing these api's or th links which we made
+
+//""""POSTMAN"""""
 
 //to test them we need a tool called "POSTMAN"
 

@@ -138,3 +138,8 @@ in mongodb.js we will configure the database  by implementing the required codes
 
 after we get "database connected" message its time to create the schema in mongodb
 
+we use the "await" infront of the variables or at some palces where we are accesing the data from the "mongoDB" or from another place
+
+we craete the middlewares to authenticate certain parts such the "userid" whcih when accessed directly can be malicious or repetative so, it has to be authentiacted before accessing it
+
+so, for certain things certain authentications are required which are performed by the "middlewares"
