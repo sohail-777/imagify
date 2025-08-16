@@ -143,3 +143,29 @@ we use the "await" infront of the variables or at some palces where we are acces
 we craete the middlewares to authenticate certain parts such the "userid" whcih when accessed directly can be malicious or repetative so, it has to be authentiacted before accessing it
 
 so, for certain things certain authentications are required which are performed by the "middlewares"
+
+after creatinga all the required "API's" and stuff and testing them using "POSTMAN"
+
+its time to connect the frontend and backend
+
+go to clinet->src-> context-> APPContext.jsx->
+
+
+to add the backend url we will have to use the .env file and in that we should create the variable "VITE_BACKEND_URL" and inside that we should provide the link of the backend with the "/" removed like this :- 'http://localhost:4000'
+
+"""TOSTIFY"""
+
+go to the website
+
+install the dependency
+
+go down and get  the lines of code u have to use they are:-
+
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css' 
+
+use these lines in the "App.jsx" file as it is the amin file
+
+we will use the <ToastContainer position=""> component and we can give the position where we want it to get dispalyed
+we gave "bottom-right" so, the notification will be opened at the bottom right 

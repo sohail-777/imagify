@@ -18,6 +18,7 @@ const userAuth = async (req, res, next) =>{
     const {token} = req.headers;
     //we will be looking for the token from the "req.headers"
 
+    
     if(!token){
         return res.json({sucess:false, message:'Not Authorized. Login Again'});
     }//as token gets created only when a user is logged in or a user is refister so, in its absence we have to give message like "login again" as user is not found :- "no token" "no user"
@@ -27,9 +28,11 @@ const userAuth = async (req, res, next) =>{
 
         //the token gets verified and if everyting is ok all the values wiill be stored in tokenDecode
         
+        
         if(tokenDecode.id){
-            req.body.userId = tokenDecode.id
+            req.body.userId = tokenDecode.id;
         }//if the id is present in that decoded token thwn, we iwll add that to the body with a name called "userID"
+
         else{
             return res.json({sucess:false, message:'Not Authorized. Login Again'});
         }

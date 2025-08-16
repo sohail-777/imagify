@@ -8,12 +8,17 @@ import Footer from './components/Footer'
 import Login from './components/Login'
 import { AppContext } from './context/AppContext'
 
+import {ToastContainer} from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+
 const App = () => {
 
   const {showLogin} = useContext(AppContext);//here we imported this state so that we could display that login component only when this state is true otherwise we wont display it
 
   return (
     <div className='px-4 sm:px-10 md:px-14 lg:px-28 min-h-screen bg-gradient-to-b frm-teal-50 to-orange-50'>
+      <ToastContainer position='bottom-right'/>
       <Navbar />
       {showLogin && <Login />}
       <Routes>

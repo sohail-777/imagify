@@ -29,7 +29,8 @@ userRouter.post('/login', loginUser)
 
 //simple whenever someone posts something in the "/request" express will send that data to the "userRegister" thats it
 
-userRouter.post('/credits', userAuth, userCredits)
+userRouter.get('/credits', userAuth, userCredits)
+//here we used the method as "get" as it is used to get the credits from the user
 
 //here as we will be getting the "user_id" from the "middleware" so, it is important to add the middleware also
 

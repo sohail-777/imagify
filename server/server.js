@@ -3,6 +3,7 @@ import cors from 'cors'
 import 'dotenv/config'
 import connectDB from './config/mongodb.js'
 import userRouter from './routes/userRoutes.js'
+import imageRouter from './routes/imageRoutes.js'
 
 
 const PORT = process.env.PORT || 4000 //process.env.PORT is where the port number will be present in  the .env file or it will use 4000 as the port value
@@ -51,6 +52,13 @@ app.use('/api/user',userRouter)
 // Removes /api/user from the URL temporarily and passes the rest (/register) to userRouter.
 
 // userRouter sees /register and runs registerUser.
+
+app.use('/api/image',imageRouter)
+//in the similare way the above one with the same reasona nd same use case we careatyed anither one 
+//we craeted this one to handle the routes of the "images" 
+//as the previous one was for the "users"
+
+//thses both things are present to make the "complete api endpoint"
 
 
 app.get('/', (req, res)=>res.send("API Working"))//whenevr we are in "/" this path we will get "API Woeking"

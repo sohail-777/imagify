@@ -16,7 +16,7 @@ const registerUser = async (req,res)=>{
         const {name,email,password} = req.body;//firstly we will see if the person who is trying to register has eneterd all the details or not by accesing them from the body
 
         if(!name || !email || !password){
-            return res.json({sucess:false, message: 'Missing Details'})
+            return res.json({success:false, message: 'Missing Details'})
         } //now, we will check if the user had enterd evrything like all the detials or not, if even any one of them is also not mentioned 
         //then it will give a response with sucess criteria as "false" and we alos give a messge like "missing details" we use json to send all these parameters
 
@@ -59,7 +59,7 @@ const registerUser = async (req,res)=>{
 
         //the second argument is the secret key which we will create in the ".env" file and use it here process.env is to access the variable or key from the ".env" file and the JWT_SECRET is the key name whose value we will be accessing
 
-        res.json({sucess:true, token, user:{name:user.name}})
+        res.json({success:true, token, user:{name:user.name}})
         //here in response we willl be sending the success as tru and the "token" whcih we created and also the user with attribute name which will be the users name only
 
         //is about creating a JSON Web Token (JWT) for authenticating users after they log in or register.
@@ -85,7 +85,7 @@ const registerUser = async (req,res)=>{
         // Client stores it (in localStorage, cookies, etc.) and sends it with future API requests.
     } catch(error){
         cosnole.log(error)
-        res.json({sucess: false, message:error.message})
+        res.json({success: false, message:error.message})
 
     }
 }
@@ -103,7 +103,7 @@ const loginUser = async (req, res)=>{
         //in user variable we are finding the "email" from the "usermodel" weather the user with that specific mail is present or not in our database in that specific model
 
         if(!user){
-            return res.json({sucess:false, message:'User does not exist'})
+            return res.json({success:false, message:'User does not exist'})
         }
 
         const isMatch = await bcrypt.compare(password,user.password)
@@ -113,9 +113,9 @@ const loginUser = async (req, res)=>{
         if(isMatch){
             const token =jwt.sign({id: user._id},process.env.JWT_SECRET)
 
-            res.json({sucess:true, token, user:{name:user.name}})
+            res.json({success:true, token, user:{name:user.name}})
         }else{
-            return res.json({sucess:false, message:'Invalid credentials'})
+            return res.json({success:false, message:'Invalid credentials'})
             //if the password is not matching then we will respond by a message that they are invalid
         }
     } catch(error){ 
@@ -126,7 +126,7 @@ const loginUser = async (req, res)=>{
 
 const userCredits = async (req,res)=>{
     try{
-        const {userId} = req.body
+        const {userId} = req.body //this was the initial way i did
         //here we will not get the user_id from the body insted we will be adding a middleware that will find the user_id from the token and that will add the user_id in the body
 
 
@@ -156,14 +156,15 @@ const userCredits = async (req,res)=>{
         //in case of no user is found we will be getting a null value 
         //so, depending on the users presence or absence we give certain responses
 
-        res.json({sucess:true,credits:user.creditBalance,user:{name:user.name}})
+        res.json({success:true,credits:user.creditBalance,user:{name:user.name}})
         //if the users found then we will give this response
 
     }catch(error){
-        cosnole.log(error.message)
+        console.log(error.message)
         res.json({success: false, message:error.message})
     }
 }
+
 
 
 export {registerUser, loginUser, userCredits}

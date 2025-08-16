@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {assets} from '../assets/assets'
 import { motion } from "motion/react"
+import { AppContext } from '../context/AppContext'
 
 const Result = () => {
 
@@ -12,9 +13,23 @@ const Result = () => {
 
   const [input, setInput] = useState('')//we created this to store the input eneetrd by the user
 
-  const onSubmitHandler = async (e) =>{
+  const {generateImage} = useContext(AppContext)
+  //we imported the generateimage function to generate the images from the Appcontext
 
-  }//here we creytyed this function to do the things when the submit button gets clicked in the form or the form gets submited what are all the things that must be done when the submit button is clicked.
+  const onSubmitHandler = async (e) =>{
+    e.preventDefault()
+    setLoading(true)
+
+    if(input){
+      const image = await generateImage(input)
+      if(image){
+        setIsImageLoded(true)
+        //the loding line gets disappered as soon as we get the image
+        setImage(image)
+      }
+    }
+    setLoading(false)
+  }//here we creytyed this function to do the things when the submit button gets clicked in the form or the form gets submited then it will generate the image using the functions
 
   return (
     <motion.form 

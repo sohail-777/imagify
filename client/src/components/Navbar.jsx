@@ -8,7 +8,7 @@ const Navbar = () => {
     //we made a global context whoch stores all the states and fuctions and we just ave to import it in every compoennet to yse the ststesa nd fucntions
     //const [user, setuser] =useState(null);//to identify weather user is logged in or logged out so, depending upon that we can give differnt navbars and other things
 
-    const {user,setShowLogin} = useContext(AppContext)
+    const {user,setShowLogin,logout,credit} = useContext(AppContext)
 
 
     const navigate = useNavigate();//its simliar to link tag only which is used to go from one page to another
@@ -25,14 +25,14 @@ const Navbar = () => {
         <div className='flex items-center gap-2 sm:gap-3 '>
             <button onClick={()=> navigate('/buy')} className='flex items-center gap-2 bg-blue-100 px-4 sm:px-6 py-1.5 sm:py-3 rounded-full hover:scale-105 transition-all duration-700'>
                 <img className='w-5' src={assets.credit_star} alt="" />
-                <p className='text-xs sm:text-sm font-medium text-gray-600'>Credits left : 50</p>
+                <p className='text-xs sm:text-sm font-medium text-gray-600'>Credits left : {credit} </p>
             </button>
-            <p className='text-gray-600 max-sm:hidden pl-4'>Hi, Sohail</p>
+            <p className='text-gray-600 max-sm:hidden pl-4'>Hi, {user.name} </p>
             <div className='relative group'>
                 <img src={assets.profile_icon} className='w-10 drop-shadow' />
                 <div className='absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-12'>
                     <ul className='list-none  m-0 p-2 bg-white rounded-md border text-sm'>
-                        <li className='py-1 px-2 cursor-pointer pr-10'>Logout</li>
+                        <li onClick={logout}  className='py-1 px-2 cursor-pointer pr-10'>Logout</li>
                     </ul>
                 </div>
             </div>
