@@ -169,3 +169,20 @@ use these lines in the "App.jsx" file as it is the amin file
 
 we will use the <ToastContainer position=""> component and we can give the position where we want it to get dispalyed
 we gave "bottom-right" so, the notification will be opened at the bottom right 
+
+"""RAZORPAY"""
+
+to integrate the payment gateway using razor pay we ahve to go to razor pay website 
+
+create an account there
+
+then get the secutity key and all store them in the .env file
+
+then starte craeting the payment gateway by creating an instance
+
+then cretae the things mentioned in the controller function of the razorpay
+
+then add the api endpoint
+
+then go to razor pay->resources->developer docs->paymnts->payment gateway-> web integrations-> integration steps->copy the <script> tag in the 1.22 
+-> paste that code in the "clients" "index.html" page just above the body tag

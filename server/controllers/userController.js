@@ -9,6 +9,10 @@ import bcrypt from "bcrypt";
 
 import jwt from "jsonwebtoken";//here we imported this to create a token form the user "authentication"
 
+import razorpay from 'razorpay';
+
+import transactionModel from '../models/transactionModel.js'
+
 //now, we are creating the controller functions like the ones for user regestration and all and we make it an async finction which has request and response
 
 const registerUser = async (req,res)=>{
@@ -165,6 +169,136 @@ const userCredits = async (req,res)=>{
     }
 }
 
+//this is razorpay instance
+const razorpayInstance = new razorpay({
+    key_id:process.env.RAZORPAY_KEY_ID,
+    key_secret:process.env.RAZORPAY_KEY_SECRETI
+});
+
+//controller function
+
+const paymentRazorpay = async(req,res)=>{
+    try{
+
+        const {userId, planId} = req.body
+
+        const userData = await userModel.findById(userId)
+
+        if(!userId || !planId){
+            return res.json({success:false, message:'Missing Details'})
+        }
+
+        //these are the basic details whoich we will be needing if we are doing a payment
+        let credits, paln, amount, date
+
+        //here we are using the switch case as depending upon the paln id we will be getting differnt values for each variables which we created
+
+        switch (planId){
+            case 'Basic':
+                plan = 'Basic'
+                credits = 100
+                amount = 10
+                break;
+            
+            case 'Advanced':
+                plan = 'Advanced'
+                credits = 500
+                amount = 50
+                break;
+            
+            case 'Business':
+                plan = 'Business'
+                credits = 5000
+                amount = 250
+                break;
+
+            default:
+                return res.json({success:false, message:'plan not found'})
+        }
+
+        date = Date.now();//thsi is used to store the current date/time stamp
+
+        //now we will be cretaing an object which will be storing all the data that has been creted till now
+
+        const transactionData ={
+            userId, paln, amount, credits, date
+        }
+
+        //now, we need to store this data in the mongoDB database
+        //so, we simply create a model in the "models" folder
 
 
-export {registerUser, loginUser, userCredits}
+        const newTransaction = await transactionModel.create(transactionData)
+        //this send s all  the dta to the database
+
+        //we ahve to craete the options depending upon which we will be having the data
+        const options ={
+            amount :amount*100,//as razor pay considers everything in ameerican dollars we have to convert it
+            currency:process.env.currency,
+            receipt:newTransaction._id//after creating a schema or a dataset in the database each schema will be having a aunique if=d created for it like for each entry of all the details of a  schema a specific "id" will be certaed for thats et of schema details we had eneterd and these id's are helpful in identifying the each individual persons details
+            //as recepit is so imoortant as it holds that unique id value whcih is given for each transaction or amount payed per user
+        }
+        //now, we wil be creating an order using the razorpay
+
+        await razorpayInstance.orders.create(options, (error, order)=>{
+            if(error){
+                console.log(error);
+                return res.json({success:false,message:error})
+            }
+            res.json({success:true,order})
+            //if eveything goes well we will return that order in response
+        })
+
+
+    }catch(error){
+        console.log(error)
+        res.json({success:false, message:error.message})
+    }
+}
+
+
+//after we had completed the payment we have to verify the payment which had happen by making another function for it
+
+const verifyRazorpay = async(req,res)=>{
+    try{
+
+        const {razorpay_order_id}= req.body;//we will be getting this id in the console 
+
+        const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id)
+        //here the information regarding the poprder will be fetched using the razorpay_order_id we are having
+
+        if(orderInfo.status === 'paid'){
+            const transactionData = await transactionModel.findById(orderInfo.receipt)
+            //if the status is paid then we will get that entire schemas data
+            //here we are using the recipt's id which we will be getting stored in the orderInfo
+            if(transactionData.payment){
+                return res.json({success:false, message:'Payment Falied'})//we will be getting this response if the payment is already verified
+            }
+            //the above case is when payment is already verified and the payment status is "true"
+            //but, if it is not verified then we have to add the credits to the users account
+
+            const userData = await userModel.findById(transactionData.userId)//we will get the user details from the transactiondata's id property and get the user with taht id form the "usermodel"
+            //now, in that userData all the datat of the user willl be available like his credits, anme, password and we acn take what we want
+
+            const creditBalance = userData.creditBalance + transactionData.credits//here we are adding the current credits available and the credits user got by paying
+
+            await userModel.findByIdAndUpdate(userData._id,{creditBalance})
+            //here we are finding the user by the userid from userModel and we are updating the value of the variable which we had given in the {} here  which is the creditBalance
+
+            //so, as the credits have been updated we also have to update the payment status to true so that we could avoid multiple payments or wrong status represntation
+
+            await transactionModel.findByIdAndUpdate(transactionData._id,{payment:true})
+
+            res.json({success:true, message:"Credits Added"})
+
+        }else{
+            res.json({success:false, message:"Payment Failed"})
+        }
+
+    }catch(error){
+        console.log(error)
+        res.json({success:false, message:error.message})
+    }
+}//this is the api to vrify the payment add its end point in the routes
+
+export {registerUser, loginUser, userCredits,paymentRazorpay, verifyRazorpay}

@@ -1,5 +1,5 @@
 import express from 'express'
-import {registerUser, loginUser, userCredits} from '../controllers/userController.js'
+import {registerUser, loginUser, userCredits, paymentRazorpay, verifyRazorpay} from '../controllers/userController.js'
 import userAuth from '../middlewares/auth.js'
 
 
@@ -32,11 +32,17 @@ userRouter.post('/login', loginUser)
 userRouter.get('/credits', userAuth, userCredits)
 //here we used the method as "get" as it is used to get the credits from the user
 
+userRouter.post('/pay-razor',userAuth,paymentRazorpay)
+
+userRouter.post('/verify-razor',verifyRazorpay)
 //here as we will be getting the "user_id" from the "middleware" so, it is important to add the middleware also
 
 //when we first do the api testin gor this we will get "login again , not authorized something like that"
 
 //to fix it:- we have to provide it a token
+
+
+//""IMPORTANT:-"" after each usercontoller function creation we create its end point and make an complete "api" then we have to add this or call this "api" in the frontend also
 
 export default userRouter
 
