@@ -5,6 +5,22 @@ always make sure ur in the folder wher u had installed the react to use "npm run
 
 to use tailwind css:-
 
+in the terminal add npm install @tailwindcss/vite tailwaindcss
+
+in index.css:- @import "tailwindcss";
+
+vite.config.js :- import tailwindcss from "@tailwindcss/vite",
+
+initially it was just  export default defineConfig({
+  plugins: [react()],
+})
+
+to:-
+
+export default defineConfig({
+  plugins: [react(),tailwindcss()],
+})
+
 go to google and search for it follow the guide it has given and make the changes it asked u to do in the :-
 tailwind.config.js and postcss.config.js files
 
